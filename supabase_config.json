@@ -1,0 +1,108 @@
+{
+  "project_name": "indian-tv-streaming",
+  "organization": "your-organization",
+  "region": "ap-south-1",
+  "database": {
+    "version": "15",
+    "extensions": [
+      "uuid-ossp",
+      "pgcrypto",
+      "pg_stat_statements"
+    ]
+  },
+  "auth": {
+    "site_url": "https://your-app-domain.com",
+    "additional_redirect_urls": [
+      "https://your-app-domain.com/auth/callback",
+      "com.indiantvstreaming.app://auth/callback"
+    ],
+    "jwt_expiry": 3600,
+    "enable_signup": true,
+    "enable_email_confirmations": true,
+    "enable_phone_confirmations": false,
+    "minimum_password_length": 8,
+    "password_requirements": {
+      "lowercase": true,
+      "uppercase": true,
+      "numbers": true,
+      "symbols": false
+    },
+    "providers": {
+      "email": {
+        "enabled": true,
+        "double_confirm_changes": true,
+        "enable_confirmations": true
+      },
+      "phone": {
+        "enabled": false
+      },
+      "google": {
+        "enabled": true,
+        "client_id": "YOUR_GOOGLE_CLIENT_ID",
+        "secret": "YOUR_GOOGLE_CLIENT_SECRET"
+      },
+      "facebook": {
+        "enabled": false
+      }
+    }
+  },
+  "storage": {
+    "buckets": [
+      {
+        "name": "videos",
+        "public": false,
+        "file_size_limit": 524288000,
+        "allowed_mime_types": [
+          "video/mp4",
+          "video/webm",
+          "video/ogg",
+          "application/x-mpegURL"
+        ]
+      },
+      {
+        "name": "thumbnails",
+        "public": true,
+        "file_size_limit": 10485760,
+        "allowed_mime_types": [
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ]
+      },
+      {
+        "name": "avatars",
+        "public": true,
+        "file_size_limit": 5242880,
+        "allowed_mime_types": [
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ]
+      }
+    ]
+  },
+  "realtime": {
+    "enabled": true,
+    "max_connections": 200
+  },
+  "edge_functions": {
+    "enabled": true,
+    "functions": [
+      "video-upload-handler",
+      "subscription-webhook",
+      "notification-sender",
+      "content-recommendation"
+    ]
+  },
+  "api": {
+    "max_rows": 1000,
+    "db_schema": "public",
+    "db_extra_search_path": "public,extensions",
+    "max_request_size": "3MB"
+  },
+  "db": {
+    "pool_size": 15,
+    "ssl_enforce": true
+  }
+}
+
